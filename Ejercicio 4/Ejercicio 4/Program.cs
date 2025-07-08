@@ -56,21 +56,26 @@ namespace Ejercicio_4
                         case 1:
                             Console.Clear();
                             pC.LoadProducts();
+                            Console.ReadKey();
                             break;
                         case 2:
                             Console.Clear();
                             pC.ViewProductList();
+                            Console.ReadKey();
                             break;
                         case 3:
                             Console.Clear();
                             pC.DeleteProduct();
+                            Console.ReadKey();
                             break;
                         case 4:
                             Console.Clear();
                             pC.UpdateProduct();
+                            Console.ReadKey();
                             break;
                         case 5:
                             Console.Clear();
+                            Console.ForegroundColor = ConsoleColor.Magenta;
                             Console.WriteLine("¡Hasta luego!");
                             Environment.Exit(0);
                             break;

@@ -22,5 +22,7 @@ namespace Products
         }
 
         public Product() { }
+
+        public double FinalPrice() => Price * 1.21;
     }
 }

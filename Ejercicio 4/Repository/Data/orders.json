@@ -1,14 +1,20 @@
 [
   {
     "Id": 1,
-    "Name": "Lampara LED",
-    "Price": 256.88999999999999,
-    "Stock": 500
+    "Name": "Linterna LED",
+    "Price": 567.88999999999999,
+    "Stock": 45
   },
   {
     "Id": 2,
-    "Name": "Portafocos ",
-    "Price": 578.98000000000002,
-    "Stock": 250
+    "Name": "Focos Alogenos",
+    "Price": 680.5,
+    "Stock": 190
+  },
+  {
+    "Id": 3,
+    "Name": "Pilas AAA",
+    "Price": 80.989999999999995,
+    "Stock": 75
   }
 ]

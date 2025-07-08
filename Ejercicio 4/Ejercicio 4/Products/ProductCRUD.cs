@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Repository;
+using RepositoryProduct;
 
 namespace Products
 {
@@ -19,12 +19,12 @@ namespace Products
 
         private void LoadProduct()
         {
-            productsList = Repository<Product>.ObtenerTodos("orders");
+            productsList = ProductRepository<Product>.ObtenerTodos("orders");
         }
 
         private void SaveProduct()
         {
-            Repository<Product>.GuardarLista("orders", productsList);
+            ProductRepository<Product>.GuardarLista("orders", productsList);
         }
 
         public void LoadProducts()
@@ -41,7 +41,7 @@ namespace Products
                 {
                     Console.WriteLine("\n[ALERT] The ID must greater than zero.");
                     Console.Write("Enter ID: ");
-                    id = int.Parse(Console.ReadLine());
+                    id = int.Parse(Console.ReadLine()) -1;
 
                     bool idExist = productsList.Any(p=> p.Id == id);
                     if (!idExist)
@@ -117,12 +117,13 @@ namespace Products
                 {
                     Console.ForegroundColor = ConsoleColor.Gray;
                     Console.WriteLine("\n------------------------------------------------------------------");
-                    Console.WriteLine($"ID: {p.Id} | Name: {p.Name} | Price: {p.Price} | Stock: {p.Stock}");
+                    Console.WriteLine($"ID: {p.Id} | Name: {p.Name} | Stock: {p.Stock} | Price: {p.Price}: USD");
+                    Console.WriteLine("------------------------------------------------------------------");
+                    Console.WriteLine($"Final Price: {p.FinalPrice()}: USD");
                     Console.WriteLine("------------------------------------------------------------------");
                 }
             }
             Console.ResetColor();
-            Console.ReadKey();
             return;
         }
 
@@ -133,26 +134,26 @@ namespace Products
             Console.Write("\nID: ");
             int id;
 
+            // Si se ingresa in ID inexistente o inválido
             while (!int.TryParse(Console.ReadLine(), out id))
             {
                 Console.WriteLine("\n[ALERT] Invalid data.");
                 Console.Write("Enter ID: ");
                 id = int.Parse(Console.ReadLine());
-
-                bool idExist = productsList.Any(p => p.Id == id);
-                if (idExist)
-                {
-                    productsList.RemoveAt(id);
-                    Console.WriteLine("\n¡Product successfully removed!.");
-                    SaveProduct();
-                }
-                else
-                {
-                    Console.WriteLine("\n[ALERT] There is no product with that ID.");
-                }
             }
 
-            Console.ReadKey();
+            // Si el ID existe se Procede
+            bool idExist = productsList.Any(p => p.Id == id);
+            if (idExist)
+            {
+                productsList.RemoveAt(id);
+                Console.WriteLine("\n¡Product successfully removed!.");
+                SaveProduct();
+            }
+            else
+            {
+                Console.WriteLine("\n[ALERT] There is no product with that ID.");
+            }
         }
 
         public void UpdateProduct()
@@ -162,56 +163,56 @@ namespace Products
             Console.Write("\nID: ");
             int id;
 
+            // Si se ingresa in ID inexistente o inválido
             while (!int.TryParse(Console.ReadLine(), out id))
             {
                 Console.WriteLine("\n[ALERT] Invalid data.");
                 Console.Write("Enter ID: ");
                 id = int.Parse(Console.ReadLine());
-
-                bool idExist = productsList.Any(p => p.Id == id);
-                if (idExist)
-                {
-                    Console.Write("New Product Name: ");
-                    string name = Console.ReadLine();
-
-                    while (string.IsNullOrEmpty(name))
-                    {
-                        Console.WriteLine("\n[ALERT] The field must not be empty.");
-                        Console.Write("Enter a Name: ");
-                        name = Console.ReadLine();
-                    }
-
-                    Console.Write("Price: ");
-                    double price;
-
-                    while (!double.TryParse(Console.ReadLine(), out price) && price <= 0)
-                    {
-                        Console.WriteLine("\n[ALERT] The price must greater than zero.");
-                        Console.Write("Enter a valid Price: ");
-                        id = int.Parse(Console.ReadLine());
-                    }
-
-                    Console.Write("Stock: ");
-                    int stock;
-
-                    while (!int.TryParse(Console.ReadLine(), out stock) && stock < 0)
-                    {
-                        Console.WriteLine("\n[ALERT] The stock must greater than zero.");
-                        Console.Write("Enter a valid Stock: ");
-                        id = int.Parse(Console.ReadLine());
-                    }
-
-                    productsList.Add(new Product(id, name, price, stock));
-
-                    SaveProduct();
-                }
-                else
-                {
-                    Console.WriteLine("\n[ALERT] There is no product with that ID.");
-                }
             }
 
-            Console.ReadKey();
+            // En caso de que el ID exista
+            bool idExist = productsList.Any(p => p.Id == id);
+            if (idExist)
+            {
+                Console.Write("New Product Name: ");
+                string name = Console.ReadLine();
+
+                while (string.IsNullOrEmpty(name))
+                {
+                    Console.WriteLine("\n[ALERT] The field must not be empty.");
+                    Console.Write("Enter a Name: ");
+                    name = Console.ReadLine();
+                }
+
+                Console.Write("Price: ");
+                double price;
+
+                while (!double.TryParse(Console.ReadLine(), out price) && price <= 0)
+                {
+                    Console.WriteLine("\n[ALERT] The price must greater than zero.");
+                    Console.Write("Enter a valid Price: ");
+                    id = int.Parse(Console.ReadLine());
+                }
+
+                Console.Write("Stock: ");
+                int stock;
+
+                while (!int.TryParse(Console.ReadLine(), out stock) && stock < 0)
+                {
+                    Console.WriteLine("\n[ALERT] The stock must greater than zero.");
+                    Console.Write("Enter a valid Stock: ");
+                    id = int.Parse(Console.ReadLine());
+                }
+
+                productsList.Add(new Product(id, name, price, stock));
+
+                SaveProduct();
+            }
+            else
+            {
+                Console.WriteLine("\n[ALERT] There is no product with that ID.");
+            }
             return;
         }
     }

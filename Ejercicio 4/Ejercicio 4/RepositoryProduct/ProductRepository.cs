@@ -5,9 +5,9 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace Repository
+namespace RepositoryProduct
 {
-    public static class Repository<T> where T : class, new()
+    public static class ProductRepository<T> where T : class, new()
     {
         private static readonly JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
         // Construye la ruta absoluta hacia Repository/Data/[archivo].json en la raíz del proyecto
