@@ -47,11 +47,6 @@ namespace Views
             return;
         }
 
-        public void ShowMsg(string msg)
-        {
-            Console.WriteLine(msg);
-        }
-
         public void MostrarMenuLibros()
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -66,6 +61,11 @@ namespace Views
             Console.WriteLine("***********************************");
             Console.Write("Enter an option: ");
             Console.ResetColor();
+        }
+
+        public void ShowMsg(string msg)
+        {
+            Console.WriteLine(msg);
         }
     }
 }
